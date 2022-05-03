@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    font: Courier, monospace;
+    font-family: Courier, monospace;
     --transparent: rgba(255, 255, 255, .1);
 }
 
