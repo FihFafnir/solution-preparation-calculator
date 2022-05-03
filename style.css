@@ -1,0 +1,92 @@
+* {
+    margin: 0;
+    --transparent: rgba(255, 255, 255, .1);
+}
+
+body {
+    background: #385f8f;
+}
+
+#container {
+    background: var(--transparent);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 10% auto;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.input {
+    display: block;
+    background: var(--transparent);
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    color: rgba(255, 255, 255,.9);
+    width: 80%;
+    margin: 10px 0 0 0;
+    outline: none;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, .8);
+}
+
+#physicalState {
+    display: flex;
+    width: 80%;
+    background: none;
+    margin: 0;
+    justify-content: space-between;
+}
+
+#physicalState div {
+    display: flex;
+    align-items: center;
+}
+
+#physicalState label {
+    position: relative;
+    display: flex;
+    margin: 5px;
+}
+
+input[type="radio"] {
+    appearance: none;
+    background-color: var(--transparent);
+    margin: 0;
+    font: inherit;
+    color: var(--transparent);
+    width: 18px;
+    height: 18px;
+    border: 4px solid transparent;
+    border-radius: 50%;
+}
+
+input[type="radio"]:checked {
+    box-shadow: inset 18px 18px #385f8f;
+}
+
+#density {
+    transition: 1s;
+    margin: 0;
+    opacity: 0;
+    width: 0;
+}
+
+#result {
+    display: block;
+    padding: 10px;
+    opacity: 0;
+    border: none;
+    text-align: center;
+    font-weight: bolder;
+    font-size: 16pt;
+    color: rgba(255, 255, 255, .9);
+    width: 100%;
+    margin-top: 10px;
+    transition: 2s;
+}

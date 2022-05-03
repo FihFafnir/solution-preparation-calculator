@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Chemical Calculations</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+</head>
+
+<body>
+    <main id="container">
+        <input type="text" class="input" id="chemicalFormula" value="" placeholder="Chemical Formula" />
+        <input type="number" class="input" id="molarity" value="" placeholder="Desired molarity" />
+        <input type="number" class="input" id="molarMass" value="" placeholder="Molar mass of substance (g/mol)" />
+        <input type="number" class="input" id="volume" value="" placeholder="Volume to be measured (l)" />
+        <input type="number" class="input" id="purity" value="" placeholder="Purity of substance (%)" />
+        <div class="input" id="physicalState">
+            <div>
+                <input type="radio" id="solid" name="physicalState" checked />
+                <label for="solid">
+                    <div>Solid</div>
+                </label>
+            </div>
+            <div>
+                <input type="radio" id="liquid" name="physicalState" />
+                <label for="liquid">
+                    <div>Liquid</div>
+                </label>
+            </div>
+        </div>
+        <input type="number" class="input" id="density" value="" placeholder="Substance density (g/ml)" />
+        <div id="result"></div>
+    </main>
+    <script src="index.js"></script>
+</body>
+
+</html>
