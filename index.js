@@ -11,15 +11,9 @@ const jsonOfChemicalElements = '{"Ac":{"molarMass":227},"Al":{"molarMass":26.981
 const chemicalElements = JSON.parse(jsonOfChemicalElements);
 
 const calculations = {
-    concentration: (molarity, molarMass, volume) => {
-        return molarMass * volume * molarity;
-    },
-    purity: (purity, mass) => {
-        return mass / (purity * 0.01);
-    },
-    density: (density, mass) => {
-        return mass / density;
-    },
+    concentration: (molarity, molarMass, volume) => molarMass * volume * molarity,
+    purity: (purity, mass) => mass / (purity * 0.01),
+    density: (density, mass) => mass / density,
     molarMass: (elements) => {
         let result = 0;
         let coefficient = 1;
@@ -51,7 +45,7 @@ const calculations = {
     }
 }
 
-function showOrHideElement(command) {
+const showOrHideElement = (command) => {
     const {
         element,
         about,
@@ -61,26 +55,19 @@ function showOrHideElement(command) {
 
     const showElement = (element) => {
         element.style.opacity = "1";
-        if (changeWidth) {
-            element.style.width = elementWidth;
-        }
+        if (changeWidth) element.style.width = elementWidth;
     }
 
     const hideElement = (element) => {
         element.style.opacity = "0";
-        if (changeWidth) {
-            element.style.width = "";
-        }
+        if (changeWidth) element.style.width = "";
     }
 
-    if (about) {
-        showElement(element);
-    } else {
-        hideElement(element);
-    }
+    if (about) showElement(element);
+    else hideElement(element);
 }
 
-function calculate(command) {
+const calculate = (command) => {
     const {
         molarity,
         molarMass,
@@ -97,22 +84,22 @@ function calculate(command) {
     return result;
 }
 
-function write(text) {
-    resultDiv.textContent = text;
+const write = (text) => resultDiv.textContent = text;
+
+const getValues = (...inputs) => {
+    const handleTheValue = (value) => value.toString().replace(",", ".");
+    const values = inputs.map((input) => handleTheValue(input.value));
+    return values;
 }
 
-function main() {
+const main = () => {
     const chemicalFormula = chemicalFormulaInput.value.split(/(?=[A-ZÀ-Ú])/);
-    if (chemicalFormulaInput.value.length > 0) {
-        molarMassInput.value = calculations.molarMass(chemicalFormula);
-    }
+    if (chemicalFormulaInput.value.length > 0) molarMassInput.value = calculations.molarMass(chemicalFormula);
 
-    const molarity = molarityInput.value;
-    const molarMass = molarMassInput.value;
-    const volume = volumeInput.value;
-    const purity = purityInput.value;
-    const density = densityInput.value;
+    const [molarity, molarMass, volume, purity, density] = getValues(molarityInput, molarMassInput, volumeInput, purityInput, densityInput);
     const isLiquid = document.querySelector("#liquid").checked;
+    
+    const isEverythingFilled = molarity.length && molarMass.length && volume.length && purity.length && (!isLiquid || density.length);
 
     showOrHideElement({
         element: densityInput,
@@ -120,15 +107,13 @@ function main() {
         elementWidth: "80%",
         changeWidth: true,
     });
-
-    const isEverythingFilled = molarity.length && molarMass.length && volume.length && purity.length && (!isLiquid || density.length);
-
+    
     showOrHideElement({
         element: resultDiv,
         about: isEverythingFilled,
         changeWidth: false,
     });
-
+    
     if (isEverythingFilled) {
         const result = calculate({
             molarity,
@@ -138,24 +123,20 @@ function main() {
             density,
             isLiquid
         });
-        
+
         const unity = isLiquid ? "ml" : "g";
-        
+
         write(`${result}(${unity})`);
     } else {
         write("");
     }
 }
 
-inputs.forEach((input) => {
-    input.ondblclick = () => {
-        input.value = "";
-    }
-});
-
-function updateAnswer() {
-    requestAnimationFrame(updateAnswer);
+const update = () => {
+    requestAnimationFrame(update);
     main();
 }
 
-updateAnswer();
+inputs.forEach((input) => input.ondblclick = () => input.value = "");
+
+update();
